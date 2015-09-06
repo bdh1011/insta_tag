@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>QUES</title>
+	<meta charset ='utf-8'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel='stylesheet' type='text/css'  href='{{url_for("static",filename="css/style.css")}}'>
+	<script src='{{url_for("static",filename="js/jquery-1.9.1.min.js")}}'></script>
+	
+</head>
+<body>
+	<div class="create_wrapper">
+		
+		<h2 class="title"><b>인스타그램 검색 시스템</b></h2>
+		<div class="form_container">
+			<div class="form_col">
+				<div class="subtitle">Search</div>
+				<form class="form " action="" method="post" name="search">
+					<table>
+					<tr>
+						<td>
+							<span class="span_float">검색어 :</span>
+						</td>
+						<td>
+							<input type="text" id="search_query" class="search_form"><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="span_float">검색량(x20개) :</span>
+						</td>
+						<td>
+							<input type="number" id="search_number" class="search_num_form">
+						</td>
+					</tr>
+					</table>
+					<a href="{{url_for('insta')}}" id = "search_button">
+								<div class="search_btn" onclick="query_search()">Search</div>
+							</a>
+				</form>
+			</div>
+
+			<div class="subtitle">Deep Search</div>
+			<div class="form_col">
+				<form class="form " action="" method="post" name="search">
+					<table>
+					<tr>
+						<td>
+							<span class="span_float">상위 n개 이차검색 :</span>
+						</td>
+						<td>
+							<input type="number" id="deep_search_rank" class="search_form"><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="span_float">검색량(x20개) :</span>
+						</td>
+						<td>
+							<input type="number" id="deep_search_number" class="search_num_form">
+						</td>
+					</tr>
+					</table>
+					<a href="{{url_for('deep')}}" id = "deep_search_button">
+								<div class="search_btn" onclick="deep_search()">Search</div>
+							</a>
+				</form>
+			</div>
+		</div>
+		<div class="tag_list_container">
+		<div class="tag_list">
+		{% for eachTag in tag_list %}
+			<div style="width:300px;position:relative;float:left">{{eachTag[0]}}</div>
+			<div style="width:100px;position:relative;float:left">{{eachTag[1]}}</div>
+		{% endfor %}
+		</div>
+
+
+		{% if deep_tag_list %}
+		<div class="tag_list">
+
+		{% for eachTag in deep_tag_list %}
+			<div style="width:300px;position:relative;float:left">{{eachTag[0]}}</div>
+			<div style="width:100px;position:relative;float:left">{{eachTag[1]}}</div>
+		{% endfor %}
+		
+		</div>
+		{% endif %}
+		</div>
+		<!-- <div class="timelineContainer" style="overflow:auto;">
+			{% for eachItem in tag_result %}
+			<div style="position:relative;float:left;width:100px; height:200px; overflow:auto; margin:20px;">
+				<div class="timelineBookmarkInfo">
+					<a class="timelineUsername" href="">{{eachItem.user.username}}</a>
+				</div>
+				<a href="#" class="openModalLink">
+					<div src="" class="timelineBookmarkAvatar Image">
+					<a href="{{eachItem['images']['standard_resolution']['url']}}">
+						<div class="iImage" style="background-image:url({{eachItem['images']['low_resolution']['url']}}); background-size:100px 100px;width:100px; height:100px;"></div>
+					</a>
+					</div>
+					<div class="timelineText">
+					{% for eachTag in eachItem.tags %}
+						{{eachTag}},
+					{% endfor %}
+					</div>
+				</a>
+			</div>
+			{% endfor %}
+		</div> -->
+		<script>
+
+		// Since there is weird delay on slideDown(), just wait until other task finished(200ms)
+		$(document).ready(function(){
+			var delay=200;//1 seconds
+		    setTimeout(function(){
+
+				var submenu = $("#portfolioMenu a").next("div").children();
+		 		submenu.slideDown('slow');
+
+	 			$("#insta").css('color','#000');
+		    //your code to be executed after 1 seconds
+		    },delay); 
+ 		});
+
+
+			function query_search(){
+				var query = document.getElementById("search_query").value;
+				var queryNum = document.getElementById("search_number").value;
+				document.getElementById("search_button").href = {{url_for('insta')}} + query + '?number='+ queryNum.toString();
+			}
+
+
+			function deep_search(){
+				var deep_search_rank = document.getElementById("deep_search_rank").value;
+				var deep_search_number = document.getElementById("deep_search_number").value;
+				document.getElementById("deep_search_button").href = '/deep'+'?deep_search_rank='+ deep_search_rank.toString()+'&deep_search_number='+deep_search_number.toString();
+			}
+		
+		</script>	
+	</div>
+		
+
+</body>
+</html>
