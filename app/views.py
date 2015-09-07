@@ -60,9 +60,9 @@ def insta_res(search_str):
         return '숫자 입력해'
     print search_str
     redis_res = redis_connections.get(search_str)
-    print redis_res[:10]
-    redis_search_cache = ast.literal_eval(redis_res)
-    print redis_res[:10]
+    if redis_res is not None:
+        redis_search_cache = ast.literal_eval(redis_res)
+    
     if len(redis_search_cache) > 0 :
         search_sub_len = number - len(redis_search_cache)
         next_url = redis_search_cache['next_url']
