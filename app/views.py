@@ -64,7 +64,6 @@ def insta_res(search_str):
         redis_search_cache = ast.literal_eval(redis_res)
     
     if redis_search_cache is not None:
-        if len(redis_search_cache) > 0:
             search_sub_len = number - len(redis_search_cache['res_list'])/20
             next_url = redis_search_cache['next_url']
             print search_sub_len
