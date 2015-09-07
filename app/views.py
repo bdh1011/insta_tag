@@ -14,6 +14,7 @@ h = httplib2.Http(".cache")
 access_token = 0
 
 redis_search_cache = {}
+print redis_search_cache
 redis_connections = redis.Redis()
 
 
