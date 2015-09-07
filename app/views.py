@@ -60,7 +60,7 @@ def insta_res(search_str):
 
     redis_search_cache = redis_connections.get(search_str)
     if redis_search_cache is not None:
-        search_len = number - len(redis_search_cache)
+        search_len = int(number) - len(redis_search_cache)
         next_url = redis_search_cache['next_url']
         print search_len
         if search_len < 0:
