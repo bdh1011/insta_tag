@@ -60,19 +60,20 @@ def insta_res(search_str):
     redis_res_cache = redis_connections.get(search_str)
     if redis_res_cache is not None:
         search_len = number - len(redis_res_cache)
+        next_url = redis_res_cache['next_url']
         print search_len
         if search_len < 0:
             res = redis_res_cache['res_list'][:number]
         elif search_len == 0:
             res = redis_res_cache['res_list']
         else:
-            next_url = redis_res_cache['next_url']
             res = search_instagram(search_str, search_len, next_url)
+        redis_res_cache['res_list'] = res['data']
+        redis_res_cache['next_url'] = res['next_url']
     else:
         res = search_instagram(search_str,int(number),0);
-
-    redis_res_cache['res_list'].append(res['data'])
-    redis_res_cache['next_url'] = res['next_url']
+        redis_res_cache['res_list'].append(res['data'])
+        redis_res_cache['next_url'] = res['next_url']
 
     redis_connections.set(search_str, redis_search_cache)
 
