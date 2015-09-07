@@ -69,7 +69,7 @@ def insta_res(search_str):
             next_url = redis_res_cache['next_url']
             res = search_instagram(search_str, search_len, next_url)
     else:
-        res = search_instagram(search_str,int(number));
+        res = search_instagram(search_str,int(number),0);
 
     redis_res_cache['res_list'].append(res['res_list'])
     redis_res_cache['next_url'] = res['next_url']
@@ -121,38 +121,6 @@ def deep_search_instagram(deep_search_rank, deep_search_number):
     return res_list
 
 
-def search_instagram(tag_name, search_len):
-    res_dict = {}
-    res_list = []
-    next_url = 0
-    print "search name : "  + tag_name
-    print "search page : " + str(search_len)
-
-    i=0
-
-
-    while i < search_len:
-        i+=1
-        print "page : " + str(i)
-        if next_url!=0:
-            resp, content = h.request(next_url)
-        else:
-            resp, content = h.request("https://api.instagram.com/v1/tags/"+unicode(tag_name.encode("utf-8"),"utf-8")+"/media/recent?client_id=d803438f727b4e1b9fa8a37ebd74a4f6&COUNT=20")
-        json_res = json.loads(content)
-
-        data_res = json_res['data']
-        for each in data_res:
-            res_list.append(each)
-
-        if not 'next_url' in json_res['pagination'].keys():
-            break
-        else:
-            next_url = json_res['pagination']['next_url']
-    res_dict['data'] = res_list
-    res_dict['next_url'] = next_url
-    return res_dict
-
-
 def search_instagram(tag_name, search_len, next_url):
     res_dict = {}
     res_list = []
@@ -166,7 +134,11 @@ def search_instagram(tag_name, search_len, next_url):
         print "page : " + str(i)
         if next_url!=0:
             resp, content = h.request(next_url)
-            json_res = json.loads(content)
+        else:
+            resp, content = h.request("https://api.instagram.com/v1/tags/"+unicode(tag_name.encode("utf-8"),"utf-8")+"/media/recent?client_id=d803438f727b4e1b9fa8a37ebd74a4f6&COUNT=20")
+        
+        json_res = json.loads(content)
+
         data_res = json_res['data']
         for each in data_res:
             res_list.append(each)
