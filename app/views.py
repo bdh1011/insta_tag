@@ -66,7 +66,7 @@ def insta_res(search_str):
         next_url = redis_search_cache['next_url']
         print search_len
         if search_len < 0:
-            res = redis_search_cache['res_list']
+            res = redis_search_cache['res_list'][:(number*20)]
         elif search_len == 0:
             res = redis_search_cache['res_list']
         else:
