@@ -58,12 +58,9 @@ def insta_res(search_str):
 
     if not isinstance(number, int ):
         return '숫자 입력해'
-    redis_str = redis_connections.get(search_str)
-    # print 'redis_str',redis_str
-    
-    redis_search_cache = ast.literal_eval(redis_str)
-    
-    if redis_search_cache is not None:
+    redis_search_cache = ast.literal_eval(redis_connections.get(search_str))
+
+    if 'res_list' in redis_search_cache:
         search_len = number - len(redis_search_cache)
         next_url = redis_search_cache['next_url']
         print search_len
