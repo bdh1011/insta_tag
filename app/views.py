@@ -56,7 +56,7 @@ def insta_res(search_str):
     next_url = ''
     number = int(request.args.get('number'))
 
-    if not isinstance(int(number), int ):
+    if not isinstance(number, int ):
         return '숫자 입력해'
 
     redis_search_cache = ast.literal_eval(redis_connections.get(search_str))
