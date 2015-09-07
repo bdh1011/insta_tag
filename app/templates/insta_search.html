@@ -87,27 +87,7 @@
 		</div>
 		{% endif %}
 		</div>
-		<!-- <div class="timelineContainer" style="overflow:auto;">
-			{% for eachItem in tag_result %}
-			<div style="position:relative;float:left;width:100px; height:200px; overflow:auto; margin:20px;">
-				<div class="timelineBookmarkInfo">
-					<a class="timelineUsername" href="">{{eachItem.user.username}}</a>
-				</div>
-				<a href="#" class="openModalLink">
-					<div src="" class="timelineBookmarkAvatar Image">
-					<a href="{{eachItem['images']['standard_resolution']['url']}}">
-						<div class="iImage" style="background-image:url({{eachItem['images']['low_resolution']['url']}}); background-size:100px 100px;width:100px; height:100px;"></div>
-					</a>
-					</div>
-					<div class="timelineText">
-					{% for eachTag in eachItem.tags %}
-						{{eachTag}},
-					{% endfor %}
-					</div>
-				</a>
-			</div>
-			{% endfor %}
-		</div> -->
+		
 		<script>
 
 		// Since there is weird delay on slideDown(), just wait until other task finished(200ms)
