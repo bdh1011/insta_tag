@@ -78,14 +78,14 @@ def insta_res(search_str):
             redis_search_cache['res_list'] = res['data']
     else:
         redis_search_cache = {}
-        res = search_instagram(search_str,number,0);
-        redis_search_cache['res_list'] = res['data']
+        res = search_instagram(search_str,number,0)['data'];
+        redis_search_cache['res_list'] = res
         redis_search_cache['next_url'] = res['next_url']
 
     redis_connections.set(search_str, redis_search_cache)
 
     tagDict = {}
-    for eachRes in res['data']:
+    for eachRes in res:
         for eachTag in eachRes['tags']:
             if not eachTag in tagDict:
                 tagDict[eachTag] = 1
