@@ -52,7 +52,6 @@ def deep():
 @app.route("/insta/<search_str>")
 def insta_res(search_str):
     res = []
-    redis_search_cache = {}
     next_url = ''
     number = int(request.args.get('number'))
 
