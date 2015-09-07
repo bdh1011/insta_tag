@@ -60,7 +60,7 @@ def insta_res(search_str):
         return '숫자 입력해'
     print search_str
     redis_res = redis_connections.get(search_str)
-    print redis_res[:30]
+    print len(redis_res)
     if len(redis_res) > 0:
         redis_search_cache = ast.literal_eval(redis_res)
 
