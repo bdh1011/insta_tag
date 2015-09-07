@@ -63,19 +63,20 @@ def insta_res(search_str):
     if redis_res is not None:
         redis_search_cache = ast.literal_eval(redis_res)
     
-    if not ((redis_search_cache is None) and (len(redis_search_cache) == 0 )):
-        search_sub_len = number - len(redis_search_cache['res_list'])/20
-        next_url = redis_search_cache['next_url']
-        print search_sub_len
-        if search_sub_len < 0:
-            res['data'] = redis_search_cache['res_list'][:(number*20)]
-        elif search_sub_len == 0:
-            res['data'] = redis_search_cache['res_list']
-        else:
-            res = search_instagram(search_str, search_sub_len, next_url)
-            redis_search_cache['next_url'] = res['next_url']
-            res['data'].extend(redis_search_cache['res_list'])
-            redis_search_cache['res_list'] = res['data']
+    if redis_search_cache is not None:
+        if len(redis_search_cache) > 0:
+            search_sub_len = number - len(redis_search_cache['res_list'])/20
+            next_url = redis_search_cache['next_url']
+            print search_sub_len
+            if search_sub_len < 0:
+                res['data'] = redis_search_cache['res_list'][:(number*20)]
+            elif search_sub_len == 0:
+                res['data'] = redis_search_cache['res_list']
+            else:
+                res = search_instagram(search_str, search_sub_len, next_url)
+                redis_search_cache['next_url'] = res['next_url']
+                res['data'].extend(redis_search_cache['res_list'])
+                redis_search_cache['res_list'] = res['data']
     else:
         redis_search_cache = {}
         res = search_instagram(search_str,number,0);
