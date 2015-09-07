@@ -71,7 +71,7 @@ def insta_res(search_str):
             res = redis_search_cache['res_list']
         else:
             res = search_instagram(search_str, search_len, next_url)
-            redis_search_cache['res_list'].append(res['data'])
+            redis_search_cache['res_list'].extend(res['data'])
             redis_search_cache['next_url'] = res['next_url']
     else:
         redis_search_cache = {}
