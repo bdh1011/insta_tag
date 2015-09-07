@@ -82,7 +82,7 @@ def insta_res(search_str):
     redis_connections.set(search_str, redis_search_cache)
 
     tagDict = {}
-    for eachRes in res:
+    for eachRes in res['data']:
         for eachTag in eachRes['tags']:
             if not eachTag in tagDict:
                 tagDict[eachTag] = 1
