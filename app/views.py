@@ -6,6 +6,7 @@ import redis
 from urllib import urlencode
 import httplib2
 import json
+import ast
 from werkzeug.contrib.cache import MemcachedCache
 import operator
 
@@ -58,7 +59,8 @@ def insta_res(search_str):
     if not isinstance(int(number), int ):
         return '숫자 입력해'
 
-    redis_search_cache = redis_connections.get(search_str)
+    redis_search_cache = ast.literal_eval(redis_connections.get(search_str))
+
     if redis_search_cache is not None:
         search_len = int(number) - len(redis_search_cache)
         next_url = redis_search_cache['next_url']
