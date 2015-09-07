@@ -13,7 +13,7 @@ CLIENT_ID = 'd803438f727b4e1b9fa8a37ebd74a4f6'
 h = httplib2.Http(".cache")
 access_token = 0
 
-redis_search_cache = []
+redis_search_cache = {}
 redis_connections = redis.Redis()
 
 
