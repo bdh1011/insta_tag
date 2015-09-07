@@ -59,7 +59,7 @@ def insta_res(search_str):
     if not isinstance(number, int ):
         return '숫자 입력해'
     redis_str = redis_connections.get(search_str)
-    print 'redis_str',redis_str
+    # print 'redis_str',redis_str
     try:
         redis_search_cache = ast.literal_eval(redis_str)
     except Exception, err:
