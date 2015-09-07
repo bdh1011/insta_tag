@@ -13,7 +13,7 @@ CLIENT_ID = 'd803438f727b4e1b9fa8a37ebd74a4f6'
 h = httplib2.Http(".cache")
 access_token = 0
 
-redis_search_cache = {}
+
 print redis_search_cache
 redis_connections = redis.Redis()
 
@@ -52,6 +52,7 @@ def deep():
 @app.route("/insta/<search_str>")
 def insta_res(search_str):
     res = []
+    redis_search_cache = {}
     next_url = ''
     number = request.args.get('number')
 
