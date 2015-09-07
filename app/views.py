@@ -54,7 +54,7 @@ def insta_res(search_str):
     res = []
     redis_search_cache = {}
     next_url = ''
-    number = request.args.get('number')
+    number = int(request.args.get('number'))
 
     if not isinstance(int(number), int ):
         return '숫자 입력해'
@@ -62,7 +62,7 @@ def insta_res(search_str):
     redis_search_cache = ast.literal_eval(redis_connections.get(search_str))
 
     if redis_search_cache is not None:
-        search_len = int(number) - len(redis_search_cache)
+        search_len = number - len(redis_search_cache)
         next_url = redis_search_cache['next_url']
         print search_len
         if search_len < 0:
@@ -75,7 +75,7 @@ def insta_res(search_str):
         redis_search_cache['next_url'] = res['next_url']
     else:
         redis_search_cache = {}
-        res = search_instagram(search_str,int(number),0);
+        res = search_instagram(search_str,number,0);
         redis_search_cache['res_list'] = res['data']
         redis_search_cache['next_url'] = res['next_url']
 
