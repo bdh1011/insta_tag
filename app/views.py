@@ -53,13 +53,16 @@ def deep():
 def insta_res(search_str):
     res = []
     next_url = ''
+    redis_search_cache = {}
     number = int(request.args.get('number'))
 
     if not isinstance(number, int ):
         return '숫자 입력해'
     redis_str = redis_connections.get(search_str)
-    if redis_str is not None:
+    try:
         redis_search_cache = ast.literal_eval(redis_str)
+    except:
+        pass
 
     if redis_search_cache is not None:
         search_len = number - len(redis_search_cache)
